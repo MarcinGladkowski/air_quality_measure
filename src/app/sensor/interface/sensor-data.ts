@@ -1,7 +1,7 @@
 export interface SensorData {
     _id: String;
     temp: Number;
-    date: Date;
+    createdDate: String;
     p2: Number;
     p1: Number;
     humi: Number;

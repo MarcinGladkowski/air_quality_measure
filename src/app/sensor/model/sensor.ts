@@ -1,10 +1,11 @@
 import { SensorData } from '../interface/sensor-data';
+import * as moment from 'moment';
 
 export class Sensor implements SensorData {
 
     _id: String;
     temp: Number;
-    date: Date;
+    createdDate: String;
     p2: Number;
     p1: Number;
     humi: Number;
@@ -13,7 +14,7 @@ export class Sensor implements SensorData {
 
         this._id = paramData._id;
         this.temp = paramData.temp;
-        this.date = paramData.date;
+        this.createdDate = paramData.createdDate;
         this.p2 = paramData.p2;
         this.p1 = paramData.p1;
         this.humi = paramData.humi;
