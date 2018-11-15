@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SensorService } from '../service/sensor.service';
+import { Sensor } from '../model/sensor';
 
 @Component({
   selector: 'app-chart',
@@ -7,10 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChartComponent implements OnInit {
 
-  constructor() { }
+  p1 = [];
+  date = [];
+
+  constructor(private sensorService: SensorService) { }
 
   ngOnInit() {
-    console.log('test');
+    this.sensorService.getSensorData().subscribe((data: Sensor[]) => {
+      for (const sensor of data) {
+        this.p1.push(sensor.p1);
+      }
+    });
   }
 
 }
