@@ -1,7 +1,36 @@
-<p>
-  chart works!
-</p>
+<nav class="navbar sticky-top navbar-light bg-light">
+        <a class="navbar-brand" href="https://marcingladkowski.pl">sensor.marcingladkowski.pl</a>
+      </nav>
 
-<div *ngIf="chart">
-  <canvas id="canvas">{{ chart }}</canvas>
+<div class="row justify-content-center">
+    <div class="col-8">
+            <div *ngIf="pmChart">
+                <canvas id="pmCanvas">{{ chart }}</canvas>
+            </div>
+    </div>
+   
 </div>
+<div class="row justify-content-center">
+        <div class="col-8">
+                <div *ngIf="tempChart">
+                    <canvas id="tempCanvas">{{ chart }}</canvas>
+                </div>
+        </div>
+</div>
+<div class="row justify-content-center">
+        <div class="col-8">
+                <div *ngIf="humiChart">
+                    <canvas id="humiCanvas">{{ chart }}</canvas>
+                </div>
+        </div>
+</div>
+
+
+
+  
+
+
+
+
+
+
