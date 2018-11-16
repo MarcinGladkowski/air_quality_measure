@@ -5,7 +5,7 @@ export class Sensor implements SensorData {
 
     _id: String;
     temp: Number;
-    createdDate: String;
+    createdDate: string;
     p2: Number;
     p1: Number;
     humi: Number;
