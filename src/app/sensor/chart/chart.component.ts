@@ -1,3 +1,7 @@
+import { ChartData } from './../interface/chart-data';
+import { SensorHumiChart } from './../model/sensor-humi-chart';
+import { SensorTempChart } from './../model/sensor-temp-chart';
+import { SensorPmChart } from './../model/sensor-pm-chart';
 import { Component, OnInit } from '@angular/core';
 import { SensorService } from '../service/sensor.service';
 import { Sensor } from '../model/sensor';
@@ -10,166 +14,41 @@ import { Chart } from 'chart.js';
 })
 export class ChartComponent implements OnInit {
 
-  p1 = [];
-  p2 = [];
-  temp = [];
-  date = [];
-  humi = [];
   pmChart = [];
   tempChart = [];
   humiChart = [];
-  i = 0;
+
+  parsedData: ChartData = {
+    p1: [],
+    p2: [],
+    date: [],
+    temp: [],
+    humi: []
+  };
 
   constructor(private sensorService: SensorService) { }
 
   ngOnInit() {
     this.sensorService.getSensorData().subscribe((data: Sensor[]) => {
 
-        data.reverse();
+        this.prepareDataForChart(data);
 
-        for (const sensor of data) {
-          const sensorDate: string = sensor.createdDate;
-          this.p1.push(sensor.p1);
-          this.p2.push(sensor.p2);
-          this.humi.push(sensor.humi);
-          this.temp.push(sensor.temp);
-          this.date.push(new Date(sensorDate));
-        }
-
-      this.pmChart = new Chart('pmCanvas', {
-        type: 'line',
-        data: {
-          labels: this.date,
-          datasets: [
-            {
-              data: this.p1,
-              borderColor: '#8e5ea2',
-              fill: false,
-              label: 'PM 2.5'
-            },
-            {
-              data: this.p2,
-              borderColor: '#3e95cd',
-              fill: false,
-              label: 'PM 10'
-            },
-          ]
-        },
-        options: {
-          legend: {
-            display: true,
-            position: 'right'
-          },
-          scales: {
-            xAxes: [{
-              type: 'time',
-              time: {
-                displayFormats: {
-                  'millisecond': 'h:mm',
-                  'second': 'h:mm',
-                  'minute': 'h:mm',
-                  'hour': 'h:mm',
-                  'day': 'h:mm',
-                  'week': 'h:mm',
-                  'month': 'h:mm',
-                  'quarter': 'h:mm',
-                  'year': 'h:mm',
-                }
-              }
-            }],
-            yAxes: [{
-              display: true
-            }],
-          }
-        }
-      });
-
-      this.tempChart = new Chart('tempCanvas', {
-        type: 'line',
-        data: {
-          labels: this.date,
-          datasets: [
-            {
-              data: this.temp,
-              borderColor: '#297159',
-              fill: false,
-              label: 'temp'
-            }
-          ]
-        },
-        options: {
-          legend: {
-            display: true,
-            position: 'right'
-          },
-          scales: {
-            xAxes: [{
-              type: 'time',
-              time: {
-                displayFormats: {
-                  'millisecond': 'h:mm',
-                  'second': 'h:mm',
-                  'minute': 'h:mm',
-                  'hour': 'h:mm',
-                  'day': 'h:mm',
-                  'week': 'h:mm',
-                  'month': 'h:mm',
-                  'quarter': 'h:mm',
-                  'year': 'h:mm',
-                }
-              }
-            }],
-            yAxes: [{
-              display: true
-            }],
-          }
-        }
-      });
-
-
-      this.humiChart = new Chart('humiCanvas', {
-        type: 'line',
-        data: {
-          labels: this.date,
-          datasets: [
-            {
-              data: this.humi,
-              borderColor: '#E2E062',
-              fill: false,
-              label: 'humi'
-            }
-          ]
-        },
-        options: {
-          legend: {
-            display: true,
-            position: 'right'
-          },
-          scales: {
-            xAxes: [{
-              type: 'time',
-              time: {
-                displayFormats: {
-                  'millisecond': 'h:mm',
-                  'second': 'h:mm',
-                  'minute': 'h:mm',
-                  'hour': 'h:mm',
-                  'day': 'h:mm',
-                  'week': 'h:mm',
-                  'month': 'h:mm',
-                  'quarter': 'h:mm',
-                  'year': 'h:mm',
-                }
-              }
-            }],
-            yAxes: [{
-              display: true
-            }],
-          }
-        }
-      });
-
-
+        this.pmChart = new SensorPmChart('pmCanvas', this.parsedData).makeChart();
+        this.tempChart = new SensorTempChart('tempCanvas', this.parsedData).makeChart();
+        this.humiChart = new SensorHumiChart('humiCanvas', this.parsedData).makeChart();
     });
+  }
+
+  private prepareDataForChart(data) {
+    data.reverse();
+
+    for (const sensor of data) {
+      const sensorDate: string = sensor.createdDate;
+      this.parsedData.p1.push(sensor.p1);
+      this.parsedData.p2.push(sensor.p2);
+      this.parsedData.temp.push(sensor.temp);
+      this.parsedData.humi.push(sensor.humi);
+      this.parsedData.date.push(new Date(sensorDate));
+    }
   }
 }
