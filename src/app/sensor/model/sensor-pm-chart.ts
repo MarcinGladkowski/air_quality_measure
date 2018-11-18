@@ -1,25 +1,26 @@
 import { Chart } from 'chart.js';
+import { AbstractChart } from './abstract-chart';
 
-export class SensorPmChart {
-
-    private chart: Chart;
+export class SensorPmChart extends AbstractChart {
 
     constructor(selector: string, data: {}) {
 
-        this.chart = new Chart('pmCanvas', {
+        super();
+
+        this.chart = new Chart(selector, {
             type: 'line',
             data: {
               labels: data['date'],
               datasets: [
                 {
                   data: data['p1'],
-                  borderColor: '#8e5ea2',
+                  borderColor: '#b591c4',
                   fill: false,
                   label: 'PM 10'
                 },
                 {
                   data: data['p2'],
-                  borderColor: '#3e95cd',
+                  borderColor: '#7cb1d3',
                   fill: false,
                   label: 'PM 2.5'
                 },
@@ -29,6 +30,10 @@ export class SensorPmChart {
               legend: {
                 display: true,
                 position: 'right'
+              },
+              title: {
+                display: true,
+                text: 'Stężenie PM10 i PM2.5'
               },
               scales: {
                 xAxes: [{
@@ -54,9 +59,4 @@ export class SensorPmChart {
             }
           });
     }
-
-    makeChart() {
-        return this.chart;
-    }
-
 }

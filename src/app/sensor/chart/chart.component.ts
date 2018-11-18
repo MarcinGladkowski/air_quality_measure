@@ -33,9 +33,9 @@ export class ChartComponent implements OnInit {
 
         this.prepareDataForChart(data);
 
-        this.pmChart = new SensorPmChart('pmCanvas', this.parsedData).makeChart();
-        this.tempChart = new SensorTempChart('tempCanvas', this.parsedData).makeChart();
-        this.humiChart = new SensorHumiChart('humiCanvas', this.parsedData).makeChart();
+        this.pmChart = new SensorPmChart('pmCanvas', this.parsedData).getChart;
+        this.tempChart = new SensorTempChart('tempCanvas', this.parsedData).getChart;
+        this.humiChart = new SensorHumiChart('humiCanvas', this.parsedData).getChart;
     });
   }
 

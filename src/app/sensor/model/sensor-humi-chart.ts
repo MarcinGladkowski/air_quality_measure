@@ -1,12 +1,13 @@
 import { Chart } from 'chart.js';
+import { AbstractChart } from './abstract-chart';
 
-export class SensorHumiChart {
-
-    private chart: Chart;
+export class SensorHumiChart extends AbstractChart {
 
     constructor(selector: string, data: {}) {
 
-        this.chart = new Chart('humiCanvas', {
+        super();
+
+        this.chart = new Chart(selector, {
             type: 'line',
             data: {
               labels: data['date'],
@@ -23,6 +24,10 @@ export class SensorHumiChart {
               legend: {
                 display: true,
                 position: 'right'
+              },
+              title: {
+                display: true,
+                text: 'Wilgotność powietrza (wewnątrz obudowy czujnika)'
               },
               scales: {
                 xAxes: [{
@@ -47,11 +52,5 @@ export class SensorHumiChart {
               }
             }
           });
-
     }
-
-    makeChart() {
-        return this.chart;
-    }
-
 }

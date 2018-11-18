@@ -1,12 +1,13 @@
 import { Chart } from 'chart.js';
+import { AbstractChart } from './abstract-chart';
 
-export class SensorTempChart {
-
-    private chart: Chart;
+export class SensorTempChart extends AbstractChart {
 
     constructor(selector: string, data: {}) {
 
-        this.chart = new Chart('tempCanvas', {
+        super();
+
+        this.chart = new Chart(selector, {
             type: 'line',
             data: {
               labels: data['date'],
@@ -23,6 +24,10 @@ export class SensorTempChart {
               legend: {
                 display: true,
                 position: 'right'
+              },
+              title: {
+                display: true,
+                text: 'Temperatura (wewnątrz obudowy czujnika)'
               },
               scales: {
                 xAxes: [{
@@ -47,11 +52,5 @@ export class SensorTempChart {
               }
             }
           });
-
     }
-
-    makeChart() {
-        return this.chart;
-    }
-
 }
