@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import Config from './config/config';
 import sensor from './routes/sensor';
 
+import { notFound, catchErrors } from '../src/middlewares/errors'; 
+
 const app = express();
 const port = 8000;
 
@@ -17,8 +19,14 @@ app.use(function(req, res, next) {
 });
 
 mongoose.connect(Config.dbUrl);
+// routes
+app.use('/api/sensor', sensor());  
 
-app.use('/api', sensor);  
+// errors
+app.use(notFound);
+app.use(catchErrors);
 
-app.listen(port);
-console.log('server starts at 127.0.0.1::' + port);
+
+app.listen(port, () => {
+    console.log('server starts at 127.0.0.1::' + port);
+});
