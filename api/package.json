@@ -1,0 +1,31 @@
+{
+  "name": "sensorapi",
+  "version": "1.0.0",
+  "description": "Api to get values from ESP8266MOD",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "start-babel": "nodemon --exec babel-node src/server.js"
+  },
+  "author": "Marcin Gladkowski",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^1.14.11",
+    "rimraf": "^2.6.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dateformat": "^3.0.2",
+    "express": "^4.16.2",
+    "ip": "^1.1.5",
+    "mongodb": "^3.0.1",
+    "mongoose": "^4.10.8",
+    "multer": "^1.4.1"
+  }
+}
