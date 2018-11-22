@@ -18,7 +18,7 @@ export class ChartComponent implements OnInit {
   tempChart = [];
   humiChart = [];
 
-  parsedData: ChartData = {
+  parsedData = {
     p1: [],
     p2: [],
     date: [],
@@ -40,7 +40,6 @@ export class ChartComponent implements OnInit {
   }
 
   private prepareDataForChart(data) {
-    data.reverse();
 
     for (const sensor of data) {
       const sensorDate: string = sensor.createdDate;
