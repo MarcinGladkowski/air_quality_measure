@@ -11,7 +11,7 @@ export default () => {
   // POST api/sensor
   api.post('/', checkServer, upload.fields([]), catchAsync(sensorController.create));
   // GET api/sensor
-  api.get('/', sensorController.list);
+  api.get('/', sensorController.findAll);
 
   return api;
 }

@@ -14,9 +14,13 @@ export default {
         return res.status(200).send({'status': 'ok'}); 
     },
     /** get all parties */
-    async list(req, res) {
-        await Sensor.find({}).sort({'createdDate': -1}).limit(100).exec(function(err, sensor) {
-            return res.send(sensor);
-        });
+    async findAll(req, res) {
+        
+        const offset = parseInt(req.query.offset) || 0;
+        const perPage = parseInt(req.query.per_page) || 100; 
+
+        const sensor = await Sensor.find({}).skip(offset).limit(perPage).sort({'createdDate': -1});
+
+        return res.send(sensor);
     }
 }
