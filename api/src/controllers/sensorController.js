@@ -19,8 +19,11 @@ export default {
         const offset = parseInt(req.query.offset) || 0;
         const perPage = parseInt(req.query.per_page) || 100; 
 
-        const sensor = await Sensor.find({}).skip(offset).limit(perPage).sort({'createdDate': -1});
+        const sensorPromise = Sensor.find({}).skip(offset).limit(perPage).sort({'createdDate': -1}); // Promise
+        const sensorCountPromise = Sensor.count(); // Promise
 
-        return res.send(sensor);
+        const [sensor, sensorCount] =  await Promise.all([ sensorPromise, sensorCountPromise]);
+
+        return res.status(200).send(sensor);
     }
 }
